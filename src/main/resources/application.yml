@@ -1,0 +1,18 @@
+# Servidor Web
+server:
+  port: 9000
+
+# Banco de Dados
+spring:
+  jpa:
+    database: SQL_SERVER
+    show-sql: true
+
+  datasource:
+    url: jdbc:sqlserver://localhost:14335;databaseName=algamoney-api
+    username: sa
+    password: sasa
+
+  jackson:
+    deserialization:
+      fail_on_unknown_properties: true
