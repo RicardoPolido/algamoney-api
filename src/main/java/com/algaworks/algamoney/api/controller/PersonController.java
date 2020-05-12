@@ -3,7 +3,7 @@ package com.algaworks.algamoney.api.controller;
 import com.algaworks.algamoney.api.event.CreatedResourceEvent;
 import com.algaworks.algamoney.api.model.Person;
 import com.algaworks.algamoney.api.repository.PersonRepository;
-import org.springframework.beans.BeanUtils;
+import com.algaworks.algamoney.api.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -20,6 +20,9 @@ public class PersonController {
 
     @Autowired
     PersonRepository personRepository;
+
+    @Autowired
+    private PersonService personService;
 
     @Autowired
     private ApplicationEventPublisher publisher;
@@ -60,10 +63,13 @@ public class PersonController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Person> update(@PathVariable Long id, @Valid @RequestBody Person person) {
-        Person personSaved = personRepository.findById(id).orElse(null);
-        BeanUtils.copyProperties(person, personSaved, "id");
-        personRepository.save(personSaved);
+        Person personSaved = personService.update(id, person);
         return ResponseEntity.ok(personSaved);
     }
 
+    @PutMapping("/{id}/active")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updatePropertyActive(@PathVariable Long id, @RequestBody Boolean active) {
+        personService.updatePropertyActive(id, active);
+    }
 }
