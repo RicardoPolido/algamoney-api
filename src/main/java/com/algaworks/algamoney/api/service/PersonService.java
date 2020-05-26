@@ -26,7 +26,7 @@ public class PersonService {
         personRepository.save(personSaved);
     }
 
-    private Person getPersonById(Long id){
+    public Person getPersonById(Long id){
         Person personSaved = personRepository.findById(id).orElse(null);
 
         if (personSaved == null) {
