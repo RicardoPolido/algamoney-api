@@ -16,3 +16,4 @@ spring:
   jackson:
     deserialization:
       fail_on_unknown_properties: true
+    date-format: yyyy-MM-dd

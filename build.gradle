@@ -28,6 +28,9 @@ dependencies {
 	}
 	compile 'com.microsoft.sqlserver:mssql-jdbc'
 	compile 'org.flywaydb:flyway-core:6.4.0'
+	compile group: 'org.hibernate', name: 'hibernate-java8', version: '5.4.16.Final'
+	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.3'
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 	compileOnly 'org.projectlombok:lombok:1.18.12'
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'
 	testCompileOnly 'org.projectlombok:lombok:1.18.12'
