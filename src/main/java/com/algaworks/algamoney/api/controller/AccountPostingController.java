@@ -4,6 +4,7 @@ import com.algaworks.algamoney.api.event.CreatedResourceEvent;
 import com.algaworks.algamoney.api.exceptionhandler.AlgamoneyExceptionHandler.Erro;
 import com.algaworks.algamoney.api.model.AccountPosting;
 import com.algaworks.algamoney.api.repository.AccountPostingRepository;
+import com.algaworks.algamoney.api.repository.filter.AccountPostingFilter;
 import com.algaworks.algamoney.api.service.AccountPostingService;
 import com.algaworks.algamoney.api.service.exception.InexistentOrInactivePersonException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ public class AccountPostingController {
     private MessageSource messageSource;
 
     @GetMapping
-    public List<AccountPosting> list() {
-        return accountPostingRepository.findAll();
+    public List<AccountPosting> list(AccountPostingFilter accountPostingFilter) {
+        return accountPostingRepository.filter(accountPostingFilter);
     }
 
     @GetMapping("/{id}")

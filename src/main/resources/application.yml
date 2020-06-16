@@ -9,7 +9,7 @@ spring:
     show-sql: true
 
   datasource:
-    url: jdbc:sqlserver://localhost:14335;databaseName=algamoney-api
+    url: jdbc:sqlserver://localhost:1433;databaseName=algamoney-api
     username: sa
     password: sasa
 
