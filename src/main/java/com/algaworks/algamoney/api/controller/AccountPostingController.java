@@ -65,6 +65,12 @@ public class AccountPostingController {
 
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        accountPostingRepository.deleteById(id);
+    }
+
     @ExceptionHandler({InexistentOrInactivePersonException.class})
     public ResponseEntity<Object> handleInexistentOrInactivePersonException(InexistentOrInactivePersonException ex, WebRequest request) {
         String messageUser = messageSource.getMessage("person.inexist-or-inactive", null, LocaleContextHolder.getLocale());
