@@ -2,6 +2,9 @@ package com.algaworks.algamoney.api.repository.accountposting;
 
 import com.algaworks.algamoney.api.model.AccountPosting;
 import com.algaworks.algamoney.api.repository.filter.AccountPostingFilter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -20,7 +23,7 @@ public class AccountPostingRepositoryImpl implements AccountPostingRepositoryQue
     private EntityManager manager;
 
     @Override
-    public List<AccountPosting> filter(AccountPostingFilter accountPostingFilter) {
+    public Page<AccountPosting> filter(AccountPostingFilter accountPostingFilter, Pageable pageable) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<AccountPosting> criteria = builder.createQuery(AccountPosting.class);
         Root<AccountPosting> root = criteria.from(AccountPosting.class);
@@ -29,7 +32,9 @@ public class AccountPostingRepositoryImpl implements AccountPostingRepositoryQue
         criteria.where(predicates);
 
         TypedQuery<AccountPosting> query = manager.createQuery(criteria);
-        return query.getResultList();
+        addPageableParameters(query, pageable);
+        
+        return new PageImpl<>(query.getResultList(), pageable, total(accountPostingFilter));
     }
 
     private Predicate[] createRestriction(AccountPostingFilter accountPostingFilter, CriteriaBuilder builder, Root<AccountPosting> root) {
@@ -50,5 +55,27 @@ public class AccountPostingRepositoryImpl implements AccountPostingRepositoryQue
         }
 
         return predicates.toArray(new Predicate[predicates.size()]);
+    }
+
+    private void addPageableParameters(TypedQuery<AccountPosting> query, Pageable pageable) {
+        int pageCurrent = pageable.getPageNumber();
+        int pageNumber = pageable.getPageSize();
+        int firstPage = pageCurrent * pageNumber;
+
+        query.setFirstResult(firstPage);
+        query.setMaxResults(pageNumber);
+    }
+
+    private Long total(AccountPostingFilter accountPostingFilter) {
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+        Root<AccountPosting> root = criteria.from(AccountPosting.class);
+
+        Predicate[] predicates = createRestriction(accountPostingFilter, builder, root);
+        criteria.where(predicates);
+
+        criteria.select(builder.count(root));
+
+        return manager.createQuery(criteria).getSingleResult();
     }
 }
