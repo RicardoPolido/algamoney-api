@@ -31,6 +31,7 @@ dependencies {
 	compile group: 'org.hibernate', name: 'hibernate-java8', version: '5.4.16.Final'
 	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.3'
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.3.0.RELEASE'
 	compileOnly 'org.projectlombok:lombok:1.18.12'
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'
 	testCompileOnly 'org.projectlombok:lombok:1.18.12'
