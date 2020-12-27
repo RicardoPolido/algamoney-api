@@ -1,15 +1,15 @@
 
 CREATE TABLE person (
-id DECIMAL (10,0) IDENTITY(1,1) NOT NULL PRIMARY KEY,
-name NVARCHAR(50) NOT NULL,
-public_place NVarchar(50) NULL,
-number NVarchar(50) NULL,
-complement NVarchar(50) NULL,
-neighborhood NVarchar(50) NULL,
-CEP NVarchar(50) NULL,
-city NVarchar(50) NULL,
-state NVarchar(50) NULL,
-active bit NOT NULL
+  id DECIMAL (10,0) IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  name NVARCHAR(50) NOT NULL,
+  public_place NVarchar(50) NULL,
+  number NVarchar(50) NULL,
+  complement NVarchar(50) NULL,
+  neighborhood NVarchar(50) NULL,
+  CEP NVarchar(50) NULL,
+  city NVarchar(50) NULL,
+  state NVarchar(50) NULL,
+  active bit NOT NULL
 );
 
 INSERT INTO person (name, public_place, number, complement, neighborhood, CEP, city, state, active) VALUES ('Ricardo Polido', 'logradouro 1', '306', 'n/a', '160545-212', 'Hilda Mandarino', 'Araçatuba', 'São Paulo', 1);

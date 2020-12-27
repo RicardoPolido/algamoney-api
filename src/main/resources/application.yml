@@ -9,10 +9,11 @@ spring:
     show-sql: true
 
   datasource:
-    url: jdbc:sqlserver://localhost:14335;databaseName=algamoney-api
+    url: jdbc:sqlserver://localhost:1433;databaseName=algamoney-api
     username: sa
     password: sasa
 
   jackson:
     deserialization:
       fail_on_unknown_properties: true
+    date-format: yyyy-MM-dd
